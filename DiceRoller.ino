@@ -28,9 +28,7 @@ void setup()
 
 void loop()
 {
-  int random_seed = (analogRead(A0) + analogRead(A1) + analogRead(A2) + analogRead(A3) + analogRead(A4) + analogRead(A5)) / 6;
-
-  randomSeed(random_seed);
+  SEED_RANDOM();
 
   if(buttonPressed(input_set))
   {
