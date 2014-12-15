@@ -6,7 +6,12 @@ const int mode_led = 12;
 
 const int random_seeder = A0;
 
-int guess;
+static int guess;
+
+// #define CONFIG_ENABLE_TRUE_RANDOM
+#define CONFIG_LEVEL_TRUE_RANDOM 0
+
+#include "Config.ino"
 
 void setup()
 {
