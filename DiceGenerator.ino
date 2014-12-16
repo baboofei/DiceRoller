@@ -1,17 +1,17 @@
 int genDice()
 {
-  int dice = random(1, 7);
+	int dice = random(1, 7);
 
-  printDebug("genDice", "Generating Dice:");
-  printDebug("genDice", String(dice));
+	printDebug("genDice", "Generating Dice:");
+	printDebug("genDice", String(dice));
 
-  return dice;
+	return dice;
 }
 
 int compareDice(int dice)
 {
-  printDebug("compareDice", "Comparing guess with dice:");
-  printDebug("compareDice", String(dice == guess));
+	printDebug("compareDice", "Comparing guess with dice:");
+	printDebug("compareDice", String(dice == guess));
 
-  return dice == guess;
+	return dice == guess;
 }
