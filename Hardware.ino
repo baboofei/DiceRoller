@@ -1,4 +1,5 @@
-const int dice_display[6][7] = {
+const int dice_display[7][7] = {
+	{LOW, LOW, LOW, LOW, LOW, LOW, LOW}, 		/* A wrapper "empty" LED state set */
 	{LOW, LOW, LOW, LOW, LOW, HIGH, LOW},
 	{LOW, LOW, LOW, LOW, HIGH, LOW, HIGH},
 	{HIGH, LOW, LOW, HIGH, LOW, HIGH, LOW},
@@ -13,26 +14,32 @@ const int dice_display[6][7] = {
 
 void displayNumber(int side)
 {
-	// Side Designs:
-	//
-	//
-	//  LED 1       LED 2
-	//
-	//  LED 5 LED 6 LED 7
-	//
-	//  LED 3       LED 4
-	//
+	/*
+	 * Side Designs:
+	 *
+	 *
+	 *  LED 1       LED 2
+	 *
+	 *  LED 5 LED 6 LED 7
+	 *
+	 *  LED 3       LED 4
+	 *
+	 */
 
-	side = (side >= 1 && side <= 6)? side : 1;
+	side = (side >= 1 && side <= 6)? side : 0;
 
 	printDebug("displayNumber", "Displaying side:");
 	printDebug("displayNumber", String(side));
 
-	for(int a = 0; a < 7; ++a)
+	if(!side)
 	{
-		digitalWrite(dice_leds[a], dice_display[side - 1][a]);
+		printError("displayNumber", "Given side number cannot be resolved", 2 );
 	}
 
+	for(int a = 0; a < 7; ++a)
+	{
+		digitalWrite(dice_leds[a], dice_display[side][a]);
+	}
 }
 
 /*

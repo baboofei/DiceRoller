@@ -1,20 +1,25 @@
-/* Pins to be used as the dice leds */
-const int dice_leds[7] = {5, 6, 7, 8, 9, 10, 11};
-
-const int input_roll = 2;	/* Pin to be used to hook the "roll" button */
-const int input_set = 3;	/* Pin to be used to hook the "increase guess" button */
-const int mode_led = 12;	/* Pin to be used to hook the mode indicator button */
-
-static int guess;		/* Current guess */
-
-#define CONFIG_ENABLE_TRUE_RANDOM
-#define CONFIG_LEVEL_TRUE_RANDOM 0
-
 #include "Config.ino"
+
+/* Pins to be used as the dice leds */
+const int dice_leds[7] = {
+	CONFIG_PIN_DICE_1,
+	CONFIG_PIN_DICE_2,
+	CONFIG_PIN_DICE_3,
+	CONFIG_PIN_DICE_4,
+	CONFIG_PIN_DICE_5,
+	CONFIG_PIN_DICE_6,
+	CONFIG_PIN_DICE_7
+};
+
+const int input_roll = CONFIG_PIN_INPUT_ROLL;	/* Pin to be used to hook the "roll" button */
+const int input_set = CONFIG_PIN_INPUT_SET;	/* Pin to be used to hook the "increase guess" button */
+const int mode_led = CONFIG_PIN_MODE;		/* Pin to be used to hook the mode indicator button */
+
+static int guess;				/* Current guess */
 
 void setup()
 {
-	Serial.begin(9600);
+	SET_SERIAL();
 
 	for(int i = 0; i < 7; ++i)
 	{
