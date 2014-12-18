@@ -42,19 +42,6 @@
 #define SEED_RANDOM()
 #endif
 
-/*
- *	To change serial communication settings, modify the following
- *
- *	These options currently have problem affecting the overall performance:
- *	when CONFIG_ENABLE_PRINT_DEBUG is turned off, the program have trouble
- *	working properly.
- */
-
-#define CONFIG_ENABLE_PRINT_DEBUG
-#define CONFIG_ENABLE_PRINT_MESSAGE
-#define CONFIG_ENABLE_PRINT_ERROR
-#define CONFIG_ERROR_LEVEL 2
-
 #define CONFIG_ENABLE_SERIAL
 #define CONFIG_SERIAL_PORT 9600
 
@@ -62,18 +49,6 @@
 #define SET_SERIAL() (Serial.begin(CONFIG_SERIAL_PORT))
 #else
 #define SET_SERIAL()
-#endif
-
-/*
- *	To change behavior on error, modify the following
- */
-
-#define CONFIG_ENABLE_ERROR_HALT
-
-#ifdef CONFIG_ENABLE_ERROR_HALT
-#define ERROR_HALT() while(true){}
-#else
-#define ERROR_HALT()
 #endif
 
 /* Pins to be used as the dice leds */
