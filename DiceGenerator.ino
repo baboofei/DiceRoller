@@ -1,6 +1,13 @@
 int genDice()
 {
-	int dice = random(1, 7);
+	int dice = 0;
+
+	for(int a = 0; a < 1000; ++a)
+	{
+		dice += random(1, 7);
+	}
+
+	dice /= 1000;
 
 	printDebug("genDice", "Generating Dice:");
 	printDebug("genDice", String(dice));
