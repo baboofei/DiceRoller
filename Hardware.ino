@@ -1,18 +1,18 @@
 const int dice_display[7][7] = {
-	{LOW, LOW, LOW, LOW, LOW, LOW, LOW}, 		/* A wrapper "empty" LED state set */
-	{LOW, LOW, LOW, LOW, LOW, HIGH, LOW},
-	{LOW, LOW, LOW, LOW, HIGH, LOW, HIGH},
-	{HIGH, LOW, LOW, HIGH, LOW, HIGH, LOW},
-	{HIGH, HIGH, HIGH, HIGH, LOW, LOW, LOW},
-	{HIGH, HIGH, HIGH, HIGH, LOW, HIGH, LOW},
-	{HIGH, HIGH, HIGH, HIGH, HIGH, LOW, HIGH}
+	{LOW, 	LOW, 	LOW, 	LOW, 	LOW, 	LOW, 	LOW}, 		/* A wrapper "empty" LED state set */
+	{LOW, 	LOW, 	LOW, 	LOW, 	LOW, 	HIGH, 	LOW},
+	{LOW, 	LOW, 	LOW, 	LOW, 	HIGH, 	LOW, 	HIGH},
+	{HIGH, 	LOW, 	LOW, 	HIGH, 	LOW, 	HIGH, 	LOW},
+	{HIGH, 	HIGH, 	HIGH, 	HIGH, 	LOW, 	LOW, 	LOW},
+	{HIGH, 	HIGH, 	HIGH, 	HIGH, 	LOW, 	HIGH, 	LOW},
+	{HIGH, 	HIGH, 	HIGH, 	HIGH, 	HIGH, 	LOW, 	HIGH}
 };
 
 /*
  *	Display a given integer between 1 to 6 with the dice leds
  */
 
-void displayNumber(int side)
+int displayNumber(int side)
 {
 	/*
 	 * Side Designs:
@@ -34,59 +34,71 @@ void displayNumber(int side)
 	if(!side)
 	{
 		printError("displayNumber", "Given side number cannot be resolved", 2 );
+
+		return -1;
 	}
 
 	for(int a = 0; a < 7; ++a)
-	{
 		digitalWrite(dice_leds[a], dice_display[side][a]);
-	}
+
+	return 0;
 }
 
 /*
  *	Turn all leds back off
  */
 
-void resetAll()
+int resetAll()
 {
 	for(int a = 0; a < 7; ++a)
-	{
 		digitalWrite(dice_leds[a], LOW);
-	}
+
+	return 0;
 }
 
 /*
  *	Blink all dice leds to indicate victory
  */
 
-void displayVictory()
+int displayVictory()
 {
 	delay(1000);
 
 	for(int i = 0; i < 10; ++i)
 	{
 		for(int a = 0; a < 7; ++a)
-		{
 			digitalWrite(dice_leds[a], HIGH);
-		}
 
 		delay(100);
 
 		for(int b = 0; b < 7; ++b)
-		{
 			digitalWrite(dice_leds[b], LOW);
-		}
 
 		delay(100);
 	}
 
 	printDebug("displayVictory", "Displaying victory sequence.");
+
+	return 0;
+}
+
+/*
+ *	Turn all leds on to test if they are working properly
+ */
+
+int displayTest()
+{
+	for(int i = 0; i < 7; ++i)
+		digitalWrite(dice_leds[i], HIGH);
+
+	return 0;
 }
 
 /*
  *	Returns true if a button hooked to pin is pressed
  */
 
-boolean buttonPressed(int pin)
+int buttonPressed(int pin)
 {
 	if(!digitalRead(pin))
 	{

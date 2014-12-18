@@ -22,9 +22,7 @@ void setup()
 	SET_SERIAL();
 
 	for(int i = 0; i < 7; ++i)
-	{
 		pinMode(dice_leds[i], OUTPUT);
-	}
 
 	pinMode(input_roll, INPUT_PULLUP);
 	pinMode(input_set, INPUT_PULLUP);
@@ -40,47 +38,57 @@ void loop()
 	SEED_RANDOM();
 
 	if(buttonPressed(input_set))
-	{
-		printDebug("loop", "Increasing guess; Current guess:");
-		printDebug("loop", String(guess));
-
-		digitalWrite(mode_led, HIGH);
-
-		guess = (guess == 6)? 0 : guess;
-
-		++guess;
-
-		displayNumber(guess);
-	}
+		increaseGuess();
 
 	if(buttonPressed(input_roll))
+		rollDice();
+
+	delay(10);
+}
+
+int increaseGuess()
+{
+	printDebug("loop", "Increasing guess; Current guess:");
+	printDebug("loop", String(guess));
+
+	digitalWrite(mode_led, HIGH);
+
+	guess = (guess == 6)? 0 : guess;
+
+	++guess;
+
+	displayNumber(guess);
+
+	return 0;
+}
+
+int rollDice()
+{
+	digitalWrite(mode_led, LOW);
+
+	for(int i = 0; i < 25; ++i)
 	{
-		digitalWrite(mode_led, LOW);
-
-		for(int i = 0; i < 25; ++i)
-		{
-			int dice = genDice();
-
-			displayNumber(dice);
-
-			delay((1000 / (25 - i)));
-
-			resetAll();
-		}
-
-		delay(100);
-
 		int dice = genDice();
 
 		displayNumber(dice);
 
-		delay(100);
+		delay((1000 / (25 - i)));
 
-		if(compareDice(dice))
-		{
-			displayVictory();
-		}
+		resetAll();
 	}
 
-	delay(10);
+	delay(100);
+
+	int dice = genDice();
+
+	displayNumber(dice);
+
+	delay(100);
+
+	if(compareDice(dice))
+	{
+		displayVictory();
+	}
+
+	return 0;
 }

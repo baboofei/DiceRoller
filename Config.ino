@@ -29,22 +29,25 @@
 #define CONFIG_LEVEL_TRUE_RANDOM 0
 
 #ifdef CONFIG_ENABLE_TRUE_RANDOM
-	#if CONFIG_LEVEL_TRUE_RANDOM == 0
-		#define SEED_RANDOM() (randomSeed(analogRead(A0 + A1 + A2 + A3 + A4 + A5)))
-	#elif CONFIG_LEVEL_TRUE_RANDOM == 1
-		#define SEED_RANDOM() (randomSeed(analogRead(A0 + A1 + A2)))
-	#elif CONFIG_LEVEL_TRUE_RANDOM == 2
-		#define SEED_RANDOM() (randomSeed(analogRead(A0)))
-	#else
-		#define SEED_RANDOM() (randomSeed(analogRead(A0 + A1 + A2 + A3 + A4 + A5)))
-	#endif
+#if CONFIG_LEVEL_TRUE_RANDOM == 0
+#define SEED_RANDOM() (randomSeed(analogRead(A0 + A1 + A2 + A3 + A4 + A5)))
+#elif CONFIG_LEVEL_TRUE_RANDOM == 1
+#define SEED_RANDOM() (randomSeed(analogRead(A0 + A1 + A2)))
+#elif CONFIG_LEVEL_TRUE_RANDOM == 2
+#define SEED_RANDOM() (randomSeed(analogRead(A0)))
 #else
-	#define SEED_RANDOM()
+#define SEED_RANDOM() (randomSeed(analogRead(A0 + A1 + A2 + A3 + A4 + A5)))
 #endif
-
+#else
+#define SEED_RANDOM()
+#endif
 
 /*
  *	To change serial communication settings, modify the following
+ *
+ *	These options currently have problem affecting the overall performance:
+ *	when CONFIG_ENABLE_PRINT_DEBUG is turned off, the program have trouble
+ *	working properly.
  */
 
 #define CONFIG_ENABLE_PRINT_DEBUG
@@ -56,7 +59,19 @@
 #define CONFIG_SERIAL_PORT 9600
 
 #ifdef CONFIG_ENABLE_SERIAL
-	#define SET_SERIAL() (Serial.begin(CONFIG_SERIAL_PORT))
+#define SET_SERIAL() (Serial.begin(CONFIG_SERIAL_PORT))
 #else
-	#define SET_SERIAL()
+#define SET_SERIAL()
+#endif
+
+/*
+ *	To change behavior on error, modify the following
+ */
+
+#define CONFIG_ENABLE_ERROR_HALT
+
+#ifdef CONFIG_ENABLE_ERROR_HALT
+#define ERROR_HALT() while(true){}
+#else
+#define ERROR_HALT()
 #endif
