@@ -15,7 +15,7 @@ const int input_roll = CONFIG_PIN_INPUT_ROLL;	/* Pin to be used to hook the "rol
 const int input_set = CONFIG_PIN_INPUT_SET;	/* Pin to be used to hook the "increase guess" button */
 const int mode_led = CONFIG_PIN_MODE;		/* Pin to be used to hook the mode indicator button */
 
-static int guess;				/* Current guess */
+static int guess = 1;				/* Current guess */
 
 void setup()
 {
@@ -27,8 +27,6 @@ void setup()
 	pinMode(input_roll, INPUT_PULLUP);
 	pinMode(input_set, INPUT_PULLUP);
 	pinMode(mode_led, OUTPUT);
-
-	guess = 1;
 
 	printDebug("setup", "Initializing");
 }
@@ -46,14 +44,19 @@ void loop()
 	delay(10);
 }
 
-int increaseGuess()
+/*
+ *	Increase the current guess by one
+ */
+
+inline int increaseGuess()
 {
 	printDebug("loop", "Increasing guess; Current guess:");
 	printDebug("loop", String(guess));
 
 	digitalWrite(mode_led, HIGH);
 
-	guess = (guess == 6)? 0 : guess;
+	if(guess == 6)
+		guess = 0;
 
 	++guess;
 
@@ -62,7 +65,11 @@ int increaseGuess()
 	return 0;
 }
 
-int rollDice()
+/*
+ *	Roll the dice and get the result of game
+ */
+
+inline int rollDice()
 {
 	digitalWrite(mode_led, LOW);
 
@@ -86,9 +93,7 @@ int rollDice()
 	delay(100);
 
 	if(compareDice(dice))
-	{
 		displayVictory();
-	}
 
 	return 0;
 }
