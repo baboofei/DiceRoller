@@ -75,3 +75,10 @@
 #else
 #define ERROR_HALT()
 #endif
+
+/*
+ *	Modify the following configuration to enable cheating
+ */
+
+#define CONFIG_CHEAT_ALWAYS_WIN
+#define CONFIG_CHEAT_ALWAYS_NUM 6
