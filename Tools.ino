@@ -28,7 +28,7 @@ void printMessage(String sender, String message)
 
 void printError(String sender, String message, int level)
 {
-	String error_lvl[10] = {"DANGER", "CRITICAL", "ERROR", "FAILURE", "OOPS", "PANIC", "WARNING", "PROBLEM", "MESSAGE", ""};
+	const String error_lvl[10] = {"DANGER", "CRITICAL", "ERROR", "FAILURE", "OOPS", "PANIC", "WARNING", "PROBLEM", "MESSAGE", ""};
 
 #ifdef CONFIG_ENABLE_PRINT_ERROR
 	if(level <= CONFIG_ERROR_LEVEL)
