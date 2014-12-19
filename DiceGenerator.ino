@@ -1,24 +1,29 @@
+#include "Config.ino"
+
 int genDice()
 {
-	int dice = 0;
-
-	for(int a = 0; a < 1000; ++a)
-	{
-		dice += random(1, 7);
-	}
-
-	dice /= 1000;
+	int dice = random(1, 7);
 
 	printDebug("genDice", "Generating Dice:");
 	printDebug("genDice", String(dice));
 
+#ifndef CONFIG_CHEAT_ALWAYS_NUM
 	return dice;
+#else
+	return CONFIG_CHEAT_ALWAYS_NUM;
+#endif
+
 }
 
 int compareDice(int dice)
 {
 	printDebug("compareDice", "Comparing guess with dice:");
-	printDebug("compareDice", String(dice == guess));
+	printDebug("compareDice", (dice == guess)? "True" : "False");
 
+#ifndef CONFIG_CHEAT_ALWAYS_WIN
 	return dice == guess;
+#else
+	return 1;
+#endif
+
 }
