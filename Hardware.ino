@@ -10,22 +10,17 @@ const int dice_display[7][7] = {
 
 /*
  *	Display a given integer between 1 to 6 with the dice leds
+ *
+ *	@func displayNumber
+ *
+ *	@param int side		-	The number of side of the dice to be displayed (1 - 6)
+ *
+ *	@return int			-	Return 0 if function succeded, -1 if the side number
+ *							is not between 1 and 6
  */
 
 int displayNumber(int side)
 {
-	/*
-	 * Side Designs:
-	 *
-	 *
-	 *  LED 1       LED 2
-	 *
-	 *  LED 5 LED 6 LED 7
-	 *
-	 *  LED 3       LED 4
-	 *
-	 */
-
 	side = (side >= 1 && side <= 6)? side : 0;
 
 	printDebug("displayNumber", "Displaying side:");
@@ -46,9 +41,13 @@ int displayNumber(int side)
 
 /*
  *	Turn all leds back off
+ *
+ *	@func resetAll
+ *
+ *	@return int		-	Return 0 if function succeded
  */
 
-int resetAll()
+int resetAll(void)
 {
 	for(int a = 0; a < 7; ++a)
 		digitalWrite(dice_leds[a], LOW);
@@ -58,9 +57,13 @@ int resetAll()
 
 /*
  *	Blink all dice leds to indicate victory
+ *
+ *	@func displayVictory
+ *
+ *	@return int		-	Return 0 if function succeded
  */
 
-int displayVictory()
+int displayVictory(void)
 {
 	delay(1000);
 
@@ -84,9 +87,13 @@ int displayVictory()
 
 /*
  *	Turn all leds on to test if they are working properly
+ *
+ *	@func displayTest
+ *
+ *	@return int		-	Return 0 if function succeded
  */
 
-int displayTest()
+int displayTest(void)
 {
 	for(int i = 0; i < 7; ++i)
 		digitalWrite(dice_leds[i], HIGH);
@@ -96,6 +103,13 @@ int displayTest()
 
 /*
  *	Returns true if a button hooked to pin is pressed
+ *
+ *	@func buttonPressed
+ *
+ *	@param int pin	-	Number of pin the button is connected to
+ *
+ *	@return int		-	Return 0 if button is not being pressed, 1 if button is
+ *						being pressed
  */
 
 int buttonPressed(int pin)

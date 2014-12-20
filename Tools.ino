@@ -1,5 +1,16 @@
 #include "Config.ino"
 
+/*
+ *	Print a debug message to on-board hardware serial
+ *
+ *	@func printDebug
+ *
+ *	@param String sender	-	Sender of the message; the name of the function
+ *								calling this function is recommended
+ *
+ *	@param String message	-	Debug message to be printed
+ */
+
 void printDebug(String sender, String message)
 {
 #ifdef CONFIG_ENABLE_PRINT_DEBUG
@@ -13,6 +24,17 @@ void printDebug(String sender, String message)
 #endif
 }
 
+/*
+ *	Print a message to on-board hardware serial
+ *
+ *	@func printMessage
+ *
+ *	@param String sender	-	Sender of the message; the name of the function
+ *								calling this function is recommended
+ *
+ *	@param String message	-	Debug message to be printed
+ */
+
 void printMessage(String sender, String message)
 {
 #ifdef CONFIG_ENABLE_PRINT_MESSAGE
@@ -25,6 +47,20 @@ void printMessage(String sender, String message)
 	Serial.print("\n");
 #endif
 }
+
+/*
+ *	Print a error message to on-board hardware serial; halt the program if
+ *	configured to do so in Config.ino
+ *
+ *	@func printError
+ *
+ *	@param String sender	-	Sender of the message; the name of the function
+ *								calling this function is recommended
+ *
+ *	@param String message	-	Debug message to be printed
+ *
+ *	@param int level		-	Error level of the message
+ */
 
 void printError(String sender, String message, int level)
 {

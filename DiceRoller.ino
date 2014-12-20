@@ -1,6 +1,5 @@
 #include "Config.ino"
 
-/* Pins to be used as the dice leds */
 const int dice_leds[7] = {
 	CONFIG_PIN_DICE_1,
 	CONFIG_PIN_DICE_2,
@@ -11,13 +10,13 @@ const int dice_leds[7] = {
 	CONFIG_PIN_DICE_7
 };
 
-const int input_roll = CONFIG_PIN_INPUT_ROLL;	/* Pin to be used to hook the "roll" button */
-const int input_set = CONFIG_PIN_INPUT_SET;	/* Pin to be used to hook the "increase guess" button */
-const int mode_led = CONFIG_PIN_MODE;		/* Pin to be used to hook the mode indicator button */
+const int input_roll = CONFIG_PIN_INPUT_ROLL;
+const int input_set = CONFIG_PIN_INPUT_SET;
+const int mode_led = CONFIG_PIN_MODE;
 
-static int guess = 1;				/* Current guess */
+static int guess = 1;
 
-void setup()
+void setup(void)
 {
 	SET_SERIAL();
 
@@ -31,7 +30,7 @@ void setup()
 	printDebug("setup", "Initializing");
 }
 
-void loop()
+void loop(void)
 {
 	SEED_RANDOM();
 
@@ -46,9 +45,13 @@ void loop()
 
 /*
  *	Increase the current guess by one
+ *
+ *	@func increaseGuess
+ *
+ *	@return int		-	Return 0 if function succeded
  */
 
-inline int increaseGuess()
+inline int increaseGuess(void)
 {
 	printDebug("loop", "Increasing guess; Current guess:");
 	printDebug("loop", String(guess));
@@ -67,9 +70,13 @@ inline int increaseGuess()
 
 /*
  *	Roll the dice and get the result of game
+ *
+ *	@func rollDice
+ *
+ *	@return int		-	Return 0 if function succeded
  */
 
-inline int rollDice()
+inline int rollDice(void)
 {
 	digitalWrite(mode_led, LOW);
 
